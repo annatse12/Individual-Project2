@@ -156,4 +156,23 @@ If you use this code in your research, please cite our series of works on agenti
 
 This project is licensed under the MIT License. See LICENSE for details.
 
+# A-Mem Reproducibility Study (FTEC5660)
 
+This repository contains my reproducibility work for **A-Mem: Agentic Memory for LLM Agents**. 
+
+## 🛠️ Environment Setup
+- **OS:** MacBook (Apple Silicon)
+- **Python:** 3.11.5
+- **LLM Backend:** DeepSeek (`deepseek-chat`)
+
+```bash
+# 1. Create environment
+python3.11 -m venv a-mem
+source a-mem/bin/activate
+pip install -r requirements.txt
+
+# 2. Setup API Keys (create a local env.sh file to avoid committing secrets)
+echo 'export DEEPSEEK_API_KEY="sk-97f040b0b6ed4793b8fbe81e353d2edc"' > env.sh
+echo 'export OPENAI_API_KEY="$DEEPSEEK_API_KEY"' >> env.sh
+echo 'export OPENAI_BASE_URL="https://api.deepseek.com"' >> env.sh
+source env.sh
