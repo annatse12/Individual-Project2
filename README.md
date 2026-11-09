@@ -176,3 +176,4 @@ echo 'export DEEPSEEK_API_KEY="your deepseek API key"' > env.sh
 echo 'export OPENAI_API_KEY="$DEEPSEEK_API_KEY"' >> env.sh
 echo 'export OPENAI_BASE_URL="https://api.deepseek.com"' >> env.sh
 source env.sh
+
