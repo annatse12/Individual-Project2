@@ -188,7 +188,7 @@ Step 1. Clone the repository:
   export OPENAI_API_KEY="your_deepseek_api_key_here"
   export OPENAI_BASE_URL="[https://api.deepseek.com](https://api.deepseek.com)"
 
-Step 2. Run Steps & Execution Pipeline
+**## 2. Run Steps & Execution Pipeline**
 Follow these steps to reproduce the dataset preparation, baseline evaluations, and ablation studies:
 
    #Generate Mini Dataset
@@ -203,7 +203,7 @@ Follow these steps to reproduce the dataset preparation, baseline evaluations, a
    #Execute the sensitivity ablation by reducing the retrieval depth to k=2:
    python test_advanced_robust.py --retrieve_k 2 --trials 5
 
-Step 3:Experimental Results Summary
+**## 3:Experimental Results Summary**
 
 | Table / Metric | Summary / Value |
 | :--- | :--- |
@@ -215,7 +215,7 @@ Step 3:Experimental Results Summary
 ### 📝 **Key Conclusion**
 > "Our 5 independent trials show extreme stability. The baseline ($k=5$) achieved a mean F1 of $0.1276 \pm 0.0100$, while reducing retrieval depth to $k=2$ collapsed the F1 score entirely to $0.0000$. This proves that **A-Mem's multi-hop reasoning is highly fragile and strictly bound by retrieval depth.**"
 
-Step 4:Repository Directory Structure
+**## 4:Repository Directory Structure**
 Individual-Project2/
 │
 ├── scripts/
@@ -228,7 +228,7 @@ Individual-Project2/
 ├── requirements.txt                # Python package dependencies
 └── README.md                       # Project documentation
 
-Step 5：Key Findings & Conclusion
+**## 5：Key Findings & Conclusion**
 Stability: Our 5 independent trials demonstrated extreme behavioral consistency for both baseline and ablation settings.
 Fragility of Multi-Hop Reasoning: Reducing retrieve_k from 5 to 2 caused the F1 score to collapse entirely from 0.1276 to 0.0000.
 Mechanistic Insight: Detailed error analysis reveals that the sole successful multi-hop question relied on a critical memory node ranked exactly 5th. Truncating the retrieval depth to 2 stripped away this essential link, proving that A-Mem's reasoning capability is strictly bound by retrieval depth.
