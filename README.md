@@ -162,28 +162,27 @@ This project is licensed under the MIT License. See LICENSE for details.
 
 This repository contains the reproduction, evaluation, and ablation study for **A-Mem** (a multi-hop memory system for LLMs), evaluated on a customized subset of the **LoCoMo** dataset using the **DeepSeek** API.
 
----
 
 ## 🛠️ 1. Environment Setup & API Keys
 
-### Prerequisites
-* Python **3.11.5** (recommended to run inside a virtual environment)
-* macOS (Apple Silicon M-series tested) or Linux / Windows
+  ### Prerequisites
+  * Python **3.11.5** (recommended to run inside a virtual environment)
+  * macOS (Apple Silicon M-series tested) or Linux / Windows
 
-### Installation Steps
-Step 1. Clone the repository:
+  ### Installation Steps
+  1.#Clone the repository:
    ```bash
-   git clone [https://github.com/annatse12/Individual-Project2.git](https://github.com/annatse12/Individual-Project2.git)
+   git clone [https://github.com/annatse12/Individual-Project2.git]。(https://github.com/annatse12/Individual-Project2.git)
    cd Individual-Project2
 
-  #Create and activate a virtual environment：
+  2.#Create and activate a virtual environment：
   python3 -m venv venv
   source venv/bin/activate
 
-  #Install required dependencies:
+  3.#Install required dependencies:
   pip install -r requirements.txt
 
-  #Configure your API Key:
+  4.#Configure your API Key:
   #Create a secure environment configuration or export your DeepSeek API key:
   export OPENAI_API_KEY="your_deepseek_api_key_here"
   export OPENAI_BASE_URL="[https://api.deepseek.com](https://api.deepseek.com)"
