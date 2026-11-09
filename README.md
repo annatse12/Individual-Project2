@@ -156,24 +156,79 @@ If you use this code in your research, please cite our series of works on agenti
 
 This project is licensed under the MIT License. See LICENSE for details.
 
-# A-Mem Reproducibility Study (FTEC5660)
+**#FTEC 5660 Individual project**
 
-This repository contains my reproducibility work for **A-Mem: Agentic Memory for LLM Agents**. 
+# A-Mem Reproducibility Study & Ablation Analysis
 
-## 🛠️ Environment Setup
-- **OS:** MacBook (Apple Silicon)
-- **Python:** 3.11.5
-- **LLM Backend:** DeepSeek (`deepseek-chat`)
+This repository contains the reproduction, evaluation, and ablation study for **A-Mem** (a multi-hop memory system for LLMs), evaluated on a customized subset of the **LoCoMo** dataset using the **DeepSeek** API.
 
-```bash
-# 1. Create environment
-python3.11 -m venv a-mem
-source a-mem/bin/activate
-pip install -r requirements.txt
+---
 
-# 2. Setup API Keys (create a local env.sh file to avoid committing secrets)
-echo 'export DEEPSEEK_API_KEY="your_API_key_here"' > env.sh
-echo 'export OPENAI_API_KEY="$DEEPSEEK_API_KEY"' >> env.sh
-echo 'export OPENAI_BASE_URL="https://api.deepseek.com"' >> env.sh
-source env.sh
+## 🛠️ 1. Environment Setup & API Keys
 
+### Prerequisites
+* Python **3.11.5** (recommended to run inside a virtual environment)
+* macOS (Apple Silicon M-series tested) or Linux / Windows
+
+### Installation Steps
+Step 1. Clone the repository:
+   ```bash
+   git clone [https://github.com/annatse12/Individual-Project2.git](https://github.com/annatse12/Individual-Project2.git)
+   cd Individual-Project2
+
+  #Create and activate a virtual environment：
+  python3 -m venv venv
+  source venv/bin/activate
+
+  #Install required dependencies:
+  pip install -r requirements.txt
+
+  #Configure your API Key:
+  #Create a secure environment configuration or export your DeepSeek API key:
+  export OPENAI_API_KEY="your_deepseek_api_key_here"
+  export OPENAI_BASE_URL="[https://api.deepseek.com](https://api.deepseek.com)"
+
+Step 2. Run Steps & Execution Pipeline
+Follow these steps to reproduce the dataset preparation, baseline evaluations, and ablation studies:
+
+   #Generate Mini Dataset
+   #Prepare the customized subset (locomo_mini.json) from the raw data:
+   python scripts/create_mini_dataset.py
+
+   #Run Baseline Evaluation (k=5)
+   #Execute the multi-hop memory retrieval baseline across 5 independent trials:
+    python test_advanced_robust.py --retrieve_k 5 --trials 5
+
+   #Run Ablation Study (k=2)
+   #Execute the sensitivity ablation by reducing the retrieval depth to k=2:
+   python test_advanced_robust.py --retrieve_k 2 --trials 5
+
+Step 3:Experimental Results Summary
+
+| Table / Metric | Summary / Value |
+| :--- | :--- |
+| **1. Overall Performance** | • A-Mem (Paper): **27.02%** F1<br>• A-Mem (Ours, DeepSeek): **12.76 ± 1.00%** F1 (BERT F1: **87.88 ± 0.24%**) |
+| **2. Ablation Study (`n=5`)** | • Baseline (`k=5`): Mean F1 = **0.1276 ± 0.0100**<br>• Ablation (`k=2`): Mean F1 = **0.0000 ± 0.0000** |
+| **3. Mechanistic Analysis** | • 4/5 questions failed across all $k$<br>• The only successful question relied on a memory node ranked exactly **5th** (Token F1: **0.615**), which was truncated at $k=2$. |
+| **4. Setup Summary** | • Hardware/Env: MacBook (Apple Silicon), Python 3.11.5 (`venv`)<br>• API: DeepSeek (`deepseek-chat`), `locomo_mini.json` (5 QAs, 5 trials) |
+
+### 📝 **Key Conclusion**
+> "Our 5 independent trials show extreme stability. The baseline ($k=5$) achieved a mean F1 of $0.1276 \pm 0.0100$, while reducing retrieval depth to $k=2$ collapsed the F1 score entirely to $0.0000$. This proves that **A-Mem's multi-hop reasoning is highly fragile and strictly bound by retrieval depth.**"
+
+Step 4:Repository Directory Structure
+Individual-Project2/
+│
+├── scripts/
+│   └── create_mini_dataset.py      # Script for dataset sample generation
+├── results/
+│   ├── baseline_k5_run1..5.json    # 5 independent trials for baseline (k=5)
+│   └── ablation_k2_run1..5.json    # 5 independent trials for ablation (k=2)
+│
+├── test_advanced_robust.py         # Main execution and evaluation script
+├── requirements.txt                # Python package dependencies
+└── README.md                       # Project documentation
+
+Step 5：Key Findings & Conclusion
+Stability: Our 5 independent trials demonstrated extreme behavioral consistency for both baseline and ablation settings.
+Fragility of Multi-Hop Reasoning: Reducing retrieve_k from 5 to 2 caused the F1 score to collapse entirely from 0.1276 to 0.0000.
+Mechanistic Insight: Detailed error analysis reveals that the sole successful multi-hop question relied on a critical memory node ranked exactly 5th. Truncating the retrieval depth to 2 stripped away this essential link, proving that A-Mem's reasoning capability is strictly bound by retrieval depth.
