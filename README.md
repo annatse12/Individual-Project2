@@ -172,7 +172,7 @@ source a-mem/bin/activate
 pip install -r requirements.txt
 
 # 2. Setup API Keys (create a local env.sh file to avoid committing secrets)
-echo 'export DEEPSEEK_API_KEY="sk-97f040b0b6ed4793b8fbe81e353d2edc"' > env.sh
+echo 'export DEEPSEEK_API_KEY="your deepseek API key"' > env.sh
 echo 'export OPENAI_API_KEY="$DEEPSEEK_API_KEY"' >> env.sh
 echo 'export OPENAI_BASE_URL="https://api.deepseek.com"' >> env.sh
 source env.sh
